@@ -6,7 +6,7 @@
   setwd("/home/rooda/Dropbox/Projects/Aysen_Hydrology/")
   
   data   <- read.csv("Data/Q_daily.csv")
-  areas  <- read.csv("Data/hectareas cuencas.csv")
+  areas  <- read.csv("hectareas_cuencas.csv")
   data$d <- as.Date(data$d)
   data$doy <- as.factor(strftime(data$d, format = "%j"))
   
@@ -54,7 +54,7 @@
   fig1 <- fig1 %>% add_trace( x = date, y = Qdoy$mean, alpha = 1, alpha_stroke = 1, line = marker_1)
   fig1 <- fig1 %>% layout(xaxis = x1, yaxis = y1, showlegend = FALSE)
   fig1 <- fig1 %>% layout(plot_bgcolor="rgb(235, 235, 235)", barmode = 'stack')
-  fig1 <- fig1 %>% layout(annotations = title)
+
   fig1 <- fig1 %>% layout(annotations = title_a)
   fig1
   
@@ -65,14 +65,14 @@
   fig2 <- fig2 %>% add_trace( x = date, y = Qdoy$mean, alpha = 1, alpha_stroke = 1, line = marker_1)
   fig2 <- fig2 %>% layout(xaxis = x1, yaxis = y1, showlegend = FALSE)
   fig2 <- fig2 %>% layout(plot_bgcolor="rgb(235, 235, 235)", barmode = 'stack')
-  fig2 <- fig2 %>% layout(annotations = title2)
+  #fig2 <- fig2 %>% layout(annotations = title2)
   
-  Qdoy <- table_doy(data, "trapa_imp2")
-  fig2 <- fig2 %>% add_trace( x = date, y = Qdoy$mean, alpha = 0.5, alpha_stroke = 0.5, line = c(marker_1, dash = 'dot'))
+  #Qdoy <- table_doy(data, "trapa_imp2")
+  #fig2 <- fig2 %>% add_trace( x = date, y = Qdoy$mean, alpha = 0.5, alpha_stroke = 0.5, line = c(marker_1, dash = 'dot'))
   
   
   Qdoy <- table_doy(data, "port_ref")
-  title_b <- list(text = "Portales", font = f, showarrow = F, xref = "paper", yref = "paper", x = 0.03, y = 0.99)
+  title_b <- list(text = "Portales", font = f, showarrow = F, xref = "paper", yref = "paper", x = 0.03, y = 0.85)
   y3   <- list(title = "Q (mm day<sup>-1 </sup>)", titlefont = f2,  tickfont = f2,  ticks = "outside", zeroline = FALSE, range = c(0,30), dtick = 10)
   fig3 <- plot_ly(   x = date, y = Qdoy$Qalto, type = 'scatter', mode = 'lines', alpha = 0, alpha_stroke = 0)
   fig3 <- fig3 %>% add_trace( x = date, y = Qdoy$Qbajo,  fillcolor="rgba(77, 175, 74, 0.2)", fill = 'tonexty', alpha = 0, alpha_stroke = 0)
@@ -88,8 +88,8 @@
   fig4 <- fig4 %>% layout(xaxis = x1, yaxis = y3, showlegend = FALSE)
   fig4 <- fig4 %>% layout(plot_bgcolor="rgb(235, 235, 235)", barmode = 'stack')
   
-  Qdoy <- table_doy(data, "port_imp2")
-  fig4 <- fig4 %>% add_trace( x = date, y = Qdoy$mean, alpha = 0.5, alpha_stroke = 0.5, line = c(marker_2, dash = 'dot'))
+  #Qdoy <- table_doy(data, "port_imp2")
+  #fig4 <- fig4 %>% add_trace( x = date, y = Qdoy$mean, alpha = 0.5, alpha_stroke = 0.5, line = c(marker_2, dash = 'dot'))
   
   Qdoy <- table_doy(data, "carr_ref")
   title_c <- list(text = "General Carrera", font = f, showarrow = F, xref = "paper", yref = "paper", x = 0.03, y = 0.9)
@@ -108,11 +108,11 @@
   fig6 <- fig6 %>% layout(xaxis = x1, yaxis = y3, showlegend = FALSE)
   fig6 <- fig6 %>% layout(plot_bgcolor="rgb(235, 235, 235)", barmode = 'stack')
   
-  Qdoy <- table_doy(data, "carr_imp2")
-  fig6 <- fig6 %>% add_trace( x = date, y = Qdoy$mean, alpha = 0.5, alpha_stroke = 0.5, line = c(marker_3, dash = 'dot'))
+  #Qdoy <- table_doy(data, "carr_imp2")
+  #fig6 <- fig6 %>% add_trace( x = date, y = Qdoy$mean, alpha = 0.5, alpha_stroke = 0.5, line = c(marker_3, dash = 'dot'))
   
   Qdoy <- table_doy(data, "coyalto_ref")
-  title_d <- list(text = "Coyhaique Alto ", font = f, showarrow = F, xref = "paper", yref = "paper", x = 0.03, y = 0.87)
+  title_d <- list(text = "Coyhaique Alto ", font = f, showarrow = F, xref = "paper", yref = "paper", x = 0.03, y = 0.93)
   y7   <- list(title = "Q (mm day<sup>-1 </sup>)", titlefont = f2,  tickfont = f2,  ticks = "outside", zeroline = FALSE, range = c(0.01,10), dtick = 3)
   fig7 <- plot_ly(   x = date, y = Qdoy$Qalto, type = 'scatter', mode = 'lines', alpha = 0, alpha_stroke = 0)
   fig7 <- fig7 %>% add_trace( x = date, y = Qdoy$Qbajo,  fillcolor="rgba(255, 127, 0, 0.2)", fill = 'tonexty', alpha = 0, alpha_stroke = 0)
@@ -120,6 +120,7 @@
   fig7 <- fig7 %>% layout(xaxis = x1, yaxis = y7, showlegend = FALSE)
   fig7 <- fig7 %>% layout(plot_bgcolor="rgb(235, 235, 235)", barmode = 'stack')
   fig7 <- fig7 %>% layout(annotations = title_d)
+  fig7 <- fig7 %>% layout(annotations = title)
   
   Qdoy <- table_doy(data, "coyalto_imp1")
   fig8 <- plot_ly(   x =date, y = Qdoy$Qalto, type = 'scatter', mode = 'lines', alpha = 0, alpha_stroke = 0)
@@ -127,12 +128,15 @@
   fig8 <- fig8 %>% add_trace( x = date, y = Qdoy$mean, alpha = 1, alpha_stroke = 1, line = marker_4)
   fig8 <- fig8 %>% layout(xaxis = x1, yaxis = y1, showlegend = FALSE)
   fig8 <- fig8 %>% layout(plot_bgcolor="rgb(235, 235, 235)", barmode = 'stack')
+  fig8 <- fig8 %>% layout(annotations = title2)
   
-  Qdoy <- table_doy(data, "coyalto_imp2")
-  fig8 <- fig8 %>% add_trace( x = date, y = Qdoy$mean, alpha = 0.5, alpha_stroke = 0.5, line = c(marker_4, dash = 'dot'))
   
-  fig <- subplot(fig1, fig2, fig3, fig4, fig5, fig6, fig7, fig8, nrows = 4, shareX = T, shareY = T, titleY = T, margin = c(0.01, 0.01, 0.01, 0.01))
+  #Qdoy <- table_doy(data, "coyalto_imp2")
+  #fig8 <- fig8 %>% add_trace( x = date, y = Qdoy$mean, alpha = 0.5, alpha_stroke = 0.5, line = c(marker_4, dash = 'dot'))
+  
+  fig <- subplot(fig7, fig8, fig1, fig2, fig5, fig6, fig3, fig4,  nrows = 4, shareX = T, shareY = T, titleY = T, margin = c(0.01, 0.01, 0.01, 0.01))
   fig
   
   reticulate::use_miniconda('r-reticulate')
-  save_image(fig, file = "/home/rooda/Dropbox/Projects/Aysen_Hydrology/Figure_Hydrology.png", width = 1100, height = 1000, scale = 4)
+  reticulate::py_run_string("import sys")
+  save_image(fig, file = "/home/rooda/Dropbox/Projects/Aysen_Hydrology/Figures/Figure_Hydrology.png", width = 1100, height = 1000, scale = 4)
